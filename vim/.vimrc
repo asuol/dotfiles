@@ -1,5 +1,8 @@
-set nocompatible              " required
-filetype off                  " required
+" Use Vim features (nocompatible with classic vi)
+set nocompatible
+
+" TODO: is this required by syntastic? It in on after Vundle..
+filetype off
 
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
@@ -14,33 +17,50 @@ Plugin 'vim-syntastic/syntastic'
 " Filesystem tree
 Plugin 'scrooloose/nerdtree'
 
+" Python identation
+Plugin 'vim-scripts/indentpython.vim'
+
+" Auto-complete
+Plugin 'ycm-core/YouCompleteMe'
+
 " Missing formatter plugin (eg google/vim-codefmt)
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
-filetype plugin indent on    " required
+filetype indent plugin on    " required
 
 "
 " Universal editor settings
 "
 
-syntax on " enable syntax highlight
+" enable syntax highlight
+syntax on 
 
 " 4 spaces instead of tabs
 set shiftwidth=4
 set softtabstop=4
 set expandtab
 
-set autoindent " basic identation - copy the style from the previous line
+" basic identation - copy the style from the previous line
+set autoindent 
 
-set fileformat=unix " store files in unix format
+" store files in unix format
+set fileformat=unix 
 
 set encoding=utf-8
 
-set nu " show line numbers
+" show line numbers
+set nu 
 
 " Ctrl + i to ident whole file
 map <C-i> gg=G<C-o><C-o> 
+
+" Enable code folding
+set foldmethod=indent
+set foldlevel=99
+
+" Enable folding with the spacebar
+nnoremap <space> za
 
 "
 " Plugin configurations
@@ -64,3 +84,19 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
+
+" YCM configurations
+let g:ycm_global_ycm_extra_conf = '~/.vim/ycm/gzhsuol_global_extra_conf.py'
+
+nnoremap ,g :YcmCompleter GoTo<CR>
+nnoremap ,r :YcmCompleter RefactorRename<space>
+
+" enable mouse mode
+set mouse=a
+
+" highlight search occurrences
+set hlsearch
+
+" use ENTER to clear any previous highlighting
+nnoremap <CR> :noh<CR><CR>
+
